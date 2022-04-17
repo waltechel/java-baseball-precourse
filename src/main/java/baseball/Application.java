@@ -10,17 +10,22 @@ public class Application {
 	private static Scanner sc;
 
 	public static void main(String[] args) {
-		// TODO: 프로그램 구현
-		sc = new Scanner(System.in);
-		answer = getAnswer();
-		input = "input";
-		System.out.println(answer);
+		gameInit();
+		playgame();
+	}
 
+	private static void playgame() {
 		while (!isOver(input, answer) && isInputOkay(getInput())) {
 			int ball = getBall(input, answer);
 			int strike = getStrike(input, answer);
 			print(ball, strike);
 		}
+	}
+
+	private static void gameInit() {
+		sc = new Scanner(System.in);
+		answer = getAnswer();
+		input = "input";
 	}
 
 	private static boolean isInputOkay(String input) throws IllegalArgumentException {
@@ -34,38 +39,24 @@ public class Application {
 
 	private static int getStrike(String input, String answer) {
 		int ret = 0;
-		if (input.charAt(0) == answer.charAt(0)) {
-			ret++;
-		}
-		if (input.charAt(1) == answer.charAt(1)) {
-			ret++;
-		}
-		if (input.charAt(2) == answer.charAt(2)) {
-			ret++;
-		}
+		ret = calculate(input.charAt(0), answer.charAt(0), ret);
+		ret = calculate(input.charAt(1), answer.charAt(1), ret);
+		ret = calculate(input.charAt(2), answer.charAt(2), ret);
 		return ret;
+	}
+
+	private static int calculate(char a, char b, int ret) {
+		return a == b ? ret + 1 : ret;
 	}
 
 	private static int getBall(String input, String answer) {
 		int ret = 0;
-		if (input.charAt(0) == answer.charAt(1)) {
-			ret++;
-		}
-		if (input.charAt(0) == answer.charAt(2)) {
-			ret++;
-		}
-		if (input.charAt(1) == answer.charAt(0)) {
-			ret++;
-		}
-		if (input.charAt(1) == answer.charAt(2)) {
-			ret++;
-		}
-		if (input.charAt(2) == answer.charAt(0)) {
-			ret++;
-		}
-		if (input.charAt(2) == answer.charAt(1)) {
-			ret++;
-		}
+		ret = calculate(input.charAt(0), answer.charAt(1), ret);
+		ret = calculate(input.charAt(0), answer.charAt(2), ret);
+		ret = calculate(input.charAt(1), answer.charAt(0), ret);
+		ret = calculate(input.charAt(1), answer.charAt(2), ret);
+		ret = calculate(input.charAt(2), answer.charAt(0), ret);
+		ret = calculate(input.charAt(2), answer.charAt(1), ret);
 		return ret;
 	}
 
@@ -108,15 +99,12 @@ public class Application {
 	}
 
 	private static boolean isAnswerOkay(String candi) {
-		if (candi.contains("0")) {
-			return false;
-		}
-		if (Integer.parseInt(candi) < 100) {
-			return false;
-		}
-		if (candi.length() != 3) {
-			return false;
-		}
+		return noZeroInCandi(candi) && noUnder100(candi) && notDuplicatedValue(candi);
+		
+		
+	}
+
+	private static boolean notDuplicatedValue(String candi) {
 		if (candi.charAt(0) == candi.charAt(1)) {
 			return false;
 		}
@@ -124,6 +112,23 @@ public class Application {
 			return false;
 		}
 		if (candi.charAt(0) == candi.charAt(2)) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean noUnder100(String candi) {
+		if (Integer.parseInt(candi) < 100) {
+			return false;
+		}
+		if (candi.length() != 3) {
+			return false;
+		}
+		return true;
+	}
+
+	private static boolean noZeroInCandi(String candi) {
+		if (candi.contains("0")) {
 			return false;
 		}
 		return true;
