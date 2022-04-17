@@ -1,13 +1,16 @@
 package baseball;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import camp.nextstep.edu.missionutils.Console;
+import camp.nextstep.edu.missionutils.Randoms;
 
 public class Application {
 
 	private static String input;
 	private static String answer;
-	private static Scanner sc;
 
 	public static void main(String[] args) {
 		gameInit();
@@ -23,7 +26,6 @@ public class Application {
 	}
 
 	private static void gameInit() {
-		sc = new Scanner(System.in);
 		answer = getAnswer();
 		System.out.println(answer);
 		input = "input";
@@ -74,7 +76,7 @@ public class Application {
 
 	private static boolean checkRegame() {
 		System.out.println("3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료\n게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
-		int input = sc.nextInt();
+		int input = Integer.parseInt(Console.readLine());
 		if (input == 1) {
 			answer = getAnswer();
 		}
@@ -120,13 +122,18 @@ public class Application {
 	}
 
 	private static String getCandi() {
-		Random r = new Random();
-		String candi = r.nextInt(999) + "";
+		String candi = getRandomValue();
+		return candi;
+	}
+
+	private static String getRandomValue() {
+		List<Integer> list = Randoms.pickUniqueNumbersInRange(1, 9, 3);
+		String candi = "" + list.get(0) + list.get(1) + list.get(2);
 		return candi;
 	}
 
 	private static String getInput() {
 		System.out.print("숫자를 입력해주세요 : ");
-		return input = sc.next();
+		return input = Console.readLine();
 	}
 }
