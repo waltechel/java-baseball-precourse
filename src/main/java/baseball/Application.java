@@ -25,6 +25,7 @@ public class Application {
 	private static void gameInit() {
 		sc = new Scanner(System.in);
 		answer = getAnswer();
+		System.out.println(answer);
 		input = "input";
 	}
 
@@ -61,18 +62,10 @@ public class Application {
 	}
 
 	private static void print(int ball, int strike) {
-		if (ball == 0 && strike != 0 && strike < 3) {
-			System.out.println(strike + "스트라이크");
-		}
 		if (ball == 0 && strike == 0) {
 			System.out.println("낫싱");
 		}
-		if (ball != 0 && strike == 0) {
-			System.out.println(ball + "볼");
-		}
-		if (ball != 0 && strike != 0) {
-			System.out.println(ball + "볼 " + strike + "스트라이크");
-		}
+		System.out.println((ball != 0 ? (ball + "볼 ") : "") + ((strike != 0 && strike < 3) ? (strike + "스트라이크") : ""));
 	}
 
 	private static boolean isOver(String input, String answer) {
