@@ -100,21 +100,15 @@ public class Application {
 
 	private static boolean isAnswerOkay(String candi) {
 		return noZeroInCandi(candi) && noUnder100(candi) && notDuplicatedValue(candi);
-		
-		
+
 	}
 
 	private static boolean notDuplicatedValue(String candi) {
-		if (candi.charAt(0) == candi.charAt(1)) {
-			return false;
-		}
-		if (candi.charAt(1) == candi.charAt(2)) {
-			return false;
-		}
-		if (candi.charAt(0) == candi.charAt(2)) {
-			return false;
-		}
-		return true;
+		int ret = 0;
+		ret = calculate(candi.charAt(0), candi.charAt(1), ret);
+		ret = calculate(candi.charAt(1), candi.charAt(2), ret);
+		ret = calculate(candi.charAt(0), candi.charAt(2), ret);
+		return ret == 0;
 	}
 
 	private static boolean noUnder100(String candi) {
