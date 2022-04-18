@@ -1,8 +1,6 @@
 package baseball;
 
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
@@ -11,6 +9,7 @@ public class Application {
 
 	private static String input;
 	private static String answer;
+	
 
 	public static void main(String[] args) {
 		gameInit();
@@ -27,11 +26,16 @@ public class Application {
 
 	private static void gameInit() {
 		answer = getAnswer();
-		System.out.println(answer);
+		// System.out.println(answer);
 		input = "input";
 	}
 
 	private static boolean isInputOkay(String input) throws IllegalArgumentException {
+
+		if (overthan1000(input)) {
+			throw new IllegalArgumentException();
+		}
+
 		try {
 			int n = Integer.parseInt(input);
 		} catch (Exception e) {
@@ -93,7 +97,6 @@ public class Application {
 
 	private static boolean isAnswerOkay(String candi) {
 		return noZeroInCandi(candi) && noUnder100(candi) && notDuplicatedValue(candi);
-
 	}
 
 	private static boolean notDuplicatedValue(String candi) {
@@ -102,6 +105,16 @@ public class Application {
 		ret = calculate(candi.charAt(1), candi.charAt(2), ret);
 		ret = calculate(candi.charAt(0), candi.charAt(2), ret);
 		return ret == 0;
+	}
+
+	private static boolean overthan1000(String candi) {
+		if (Integer.parseInt(candi) >= 1000) {
+			return true;
+		}
+		if (candi.length() > 3) {
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean noUnder100(String candi) {
@@ -128,6 +141,9 @@ public class Application {
 
 	private static String getRandomValue() {
 		List<Integer> list = Randoms.pickUniqueNumbersInRange(1, 9, 3);
+		while (list.size() != 3) {
+			list = Randoms.pickUniqueNumbersInRange(1, 9, 3);
+		}
 		String candi = "" + list.get(0) + list.get(1) + list.get(2);
 		return candi;
 	}
@@ -136,4 +152,33 @@ public class Application {
 		System.out.print("숫자를 입력해주세요 : ");
 		return input = Console.readLine();
 	}
+
+	public static String getNothingValueisNotChanged() {
+		String candi = getRandomValue();
+		while (!isNothing(candi, answer)) {
+			candi = getRandomValue();
+		}
+		return candi;
+	}
+
+	private static boolean isNothing(String candi, String answer) {
+		return getBall(candi, answer) == 0 && getStrike(candi, answer) == 0;
+	}
+
+	public static String getOneBallOneStrikeValueisNotChanged() {
+		String candi = getRandomValue();
+		while (!isOneBallOneStrike(candi)) {
+			candi = getRandomValue();
+		}
+		return candi;
+	}
+
+	private static boolean isOneBallOneStrike(String candi) {
+		return getBall(candi, answer) == 1 && getStrike(candi, answer) == 1;
+	}
+
+	public static String getAnswerValueisNotChanged() {
+		return answer;
+	}
+
 }

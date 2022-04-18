@@ -42,8 +42,8 @@
 - 과제 진행 및 제출 방법은 프리코스 과제 제출 문서를 참고한다.
 
 - 터미널에서 “java-version”을 실행해 자바 8인지 확인한다. 또는 Eclipse, Intellij와 같은 IDE의 자바8로 실행하는지 확인한다.
-- 터미널에서 터미널에서 Mac 또는 Linux 사용자의 경우 “./gradlewcleantest” 명령을 실행하고,
-  Windows 사용자의 경우 “gradlew.batcleantest” 명령을 실행할때 모든 테스트가 통과하는지 확인한다.
+- 터미널에서 터미널에서 Mac 또는 Linux 사용자의 경우 “./gradlew clean test” 명령을 실행하고,
+  Windows 사용자의 경우 “gradlew.bat clean test” 명령을 실행할때 모든 테스트가 통과하는지 확인한다.
 
 - 2022년 4월18일(월) 23시59분까지 GitHub을 통한 미션제출과 프리코스 1차 구글 폼까지 제출완료 해야 한다.
 - 2022년 4월19일(화) 00시 이후 추가 push도 허용하지 않는다.
